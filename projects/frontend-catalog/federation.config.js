@@ -1,0 +1,17 @@
+const { withNativeFederation, shareAll } = require('@angular-architects/native-federation/config');
+
+module.exports = withNativeFederation({
+  name: 'frontend-catalog',
+  exposes: {
+    './Component': './projects/frontend-catalog/src/app/app.component.ts',
+  },
+  shared: {
+    ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto', transform: true }),
+  },
+  skip: [
+    'rxjs/ajax',
+    'rxjs/fetch',
+    'rxjs/testing',
+    'rxjs/webSocket',
+  ]
+});
