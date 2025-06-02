@@ -1,0 +1,21 @@
+:host {
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color:  #666 transparent;
+  }
+
+  .item {
+    border-bottom: 1px solid #d4d4d4;
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+  }
+}

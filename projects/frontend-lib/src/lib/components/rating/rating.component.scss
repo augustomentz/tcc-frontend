@@ -1,0 +1,21 @@
+:host {
+  .rating {
+    display: flex;
+    gap: 1px;
+    .star {
+      font-size: 1.5rem;
+      color: #ccc;
+      cursor: pointer;
+      transition: color 0.2s;
+      outline: none;
+
+      &.filled {
+        color: #FFD600;
+      }
+      &.disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    }
+  }
+}

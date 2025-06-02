@@ -4,12 +4,12 @@ import { REMOTE_CART, REMOTE_CATALOG, REMOTE_CHECKOUT } from '@tcc/shell/remotes
 
 export const routes: Routes = [
   {
-    path: 'cart',
-    loadComponent: () => loadRemoteModule(REMOTE_CART.name, REMOTE_CART.exposedArtefact).then((m) => m.AppComponent),
+    path: '',
+    loadComponent: () => loadRemoteModule(REMOTE_CATALOG.name, REMOTE_CATALOG.exposedArtefact).then((m) => m.AppComponent),
   },
   {
-    path: 'catalog',
-    loadComponent: () => loadRemoteModule(REMOTE_CATALOG.name, REMOTE_CATALOG.exposedArtefact).then((m) => m.AppComponent),
+    path: 'cart',
+    loadComponent: () => loadRemoteModule(REMOTE_CART.name, REMOTE_CART.exposedArtefact).then((m) => m.AppComponent),
   },
   {
     path: 'checkout',

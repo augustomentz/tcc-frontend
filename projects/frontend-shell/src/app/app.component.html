@@ -1,13 +1,21 @@
-<h1 class="text-2xl font-bold">Main App</h1>
+<main class="main" [@mainAnimation]="cartOpened() ? 'moved' : 'normal'">
+  <header class="flex justify-between items-center p-4 select-none">
+    <ng-title title="TCC AHM" size="4xlarge" [border]="true" class="logo" />
 
-<nav>
-  <a routerLink="/cart" class="text-blue-500">Cart</a>
-  <a routerLink="/catalog" class="text-blue-500">Catalog</a>
-  <a routerLink="/checkout" class="text-blue-500">Checkout</a>
-</nav>
+    <ng-icon name="ionCart" size="24" (click)="toggleCart()" class="cursor-pointer" />
+  </header>
 
-<div class="container">
-  <router-outlet />
+  <div class="max-h-[calc(100dvh-80px)] overflow-y-auto custom-scrollbar">
+    <router-outlet />
+  </div>
+</main>
+
+<div class="cart bg-white fixed h-full w-[400px] top-0 p-4" [@cartAnimation]="cartOpened() ? 'moved' : 'normal'">
+  <div
+    loadMfe
+    [remoteUrl]="cartMfe().url"
+    [exposedModule]="cartMfe().exposedArtefact"
+    exposedArtefact="AppComponent"
+  ></div>
 </div>
 
-<p-button label="Click" />

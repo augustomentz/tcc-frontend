@@ -1,0 +1,14 @@
+<button (click)="onClickHandler()" class="cursor-pointer p-2 text-white border-none rounded-md" [ngClass]="{
+  'bg-slate-950': filled(),
+  'bg-transparent': !filled(),
+  'w-full': full(),
+  'text-sm': size() === 'small',
+  'text-base': size() === 'medium',
+  'text-lg': size() === 'large',
+}">
+  @if (label()) {
+    {{ label() }}
+  } @else {
+    <ng-content />
+  }
+</button>

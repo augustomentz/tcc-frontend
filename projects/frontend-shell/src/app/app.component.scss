@@ -1,0 +1,14 @@
+:host {
+  .logo::ng-deep p {
+    font-weight: 800;
+  }
+
+  .cart {
+    right: -100%;
+  }
+
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color:  #666 #cbd5e1;
+  }
+}

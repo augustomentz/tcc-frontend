@@ -6,4 +6,18 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Bebas Neue", sans-serif;
 }
+
+body, button {
+  @apply bg-gray-300;
+}
+
+.font-bebas-neue {
+  font-family: "Bebas Neue", sans-serif !important;
+}
+
+.font-inter {
+  font-family: "Inter", sans-serif !important;
+}
+

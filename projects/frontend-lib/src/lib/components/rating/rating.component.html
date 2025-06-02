@@ -1,0 +1,17 @@
+<div class="rating flex items-center">
+  @for (star of stars; track $index) {
+    <span
+      class="star"
+      [class.filled]="$index < value()"
+      (click)="setRating($index + 1)"
+      (keydown.enter)="setRating($index + 1)"
+      tabindex="0"
+      [attr.aria-label]="'Avaliar com ' + ($index + 1) + ' estrelas'"
+      [attr.role]="'button'"
+      [attr.aria-pressed]="$index < value()"
+      [class.disabled]="isDisabled"
+    >&#9733;</span>
+  }
+
+  <p class="mt-[5px] ml-[10px]"><span>{{ value() }}.0</span>/<span class="text-gray-500">{{ max }}</span></p>
+</div>

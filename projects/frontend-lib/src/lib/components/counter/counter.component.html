@@ -1,0 +1,17 @@
+<div class="flex items-center rounded-full gap-2 w-fit overflow-hidden bg-gray-200">
+  <button
+    class="text-2xl w-8 h-8 flex items-center justify-center transition cursor-pointer border-none bg-transparent disabled:opacity-100 disabled:cursor-not-allowed"
+    (click)="decrement()"
+    [disabled]="value() <= min()"
+    aria-label="Decrement"
+  >−</button>
+
+  <span class="text-[18px] min-w-[24px] text-center select-none">{{ value() }}</span>
+
+  <button
+    class="text-2xl w-8 h-8 flex items-center justify-center transition cursor-pointer border-none bg-transparent disabled:opacity-100 disabled:cursor-not-allowed"
+    (click)="increment()"
+    [disabled]="value() >= max()"
+    aria-label="Increment"
+  >+</button>
+</div>

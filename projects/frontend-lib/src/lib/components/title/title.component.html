@@ -1,0 +1,12 @@
+<p [ngClass]="{
+  'w-full': full(),
+  'text-sm': size() === 'small',
+  'text-base': size() === 'medium',
+  'text-lg': size() === 'large',
+  'text-xl': size() === 'xlarge',
+  'text-2xl': size() === '2xlarge',
+  'text-3xl': size() === '3xlarge',
+  'text-4xl': size() === '4xlarge',
+  'text-5xl': size() === '5xlarge',
+  'border-b-2 border-solid border-t-0 border-x-0 border-y-0': border()
+}">{{ title() }}</p>

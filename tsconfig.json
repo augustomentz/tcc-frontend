@@ -22,7 +22,12 @@
     "baseUrl": "./",
     "paths": {
       "@tcc/cart/*": ["projects/frontend-cart/*"],
-      "@tcc/shell/*": ["projects/frontend-shell/*"]
+      "@tcc/shell/*": [
+        "projects/frontend-shell/*"
+      ],
+      "@frontend-lib": [
+        "./dist/frontend-lib"
+      ]
     },
     "lib": [
       "ES2022",
