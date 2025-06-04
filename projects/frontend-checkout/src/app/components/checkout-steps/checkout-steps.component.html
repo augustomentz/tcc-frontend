@@ -1,0 +1,110 @@
+<div class="bg-white rounded-lg w-full">
+  <!-- Steps Header -->
+  <div class="flex border-b">
+    @for (s of steps; track s; let i = $index) {
+      <div
+        class="flex-1 text-center py-3 cursor-pointer"
+        [ngClass]="{
+          'bg-black text-white': step === i,
+          'bg-white text-black': step !== i
+        }"
+        (click)="step = i"
+      >
+        {{ s }}
+      </div>
+    }
+  </div>
+
+  <!-- Step 1: Personal -->
+  @if (step === 0) {
+    <form [formGroup]="personalForm" (ngSubmit)="nextStep()" class="p-4">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm mb-1">First Name*</label>
+          <input formControlName="firstName" class="w-full border rounded px-3 py-2" />
+        </div>
+        <div>
+          <label class="block text-sm mb-1">Last Name*</label>
+          <input formControlName="lastName" class="w-full border rounded px-3 py-2" />
+        </div>
+        <div class="col-span-2 grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm mb-1">Email Address*</label>
+            <input formControlName="email" class="w-full border rounded px-3 py-2" />
+          </div>
+          <div>
+            <label class="block text-sm mb-1">Phone Number*</label>
+            <input formControlName="phone" class="w-full border rounded px-3 py-2" />
+          </div>
+        </div>
+      </div>
+
+      <div class="my-4">
+        <label class="block text-sm mb-1">Street Address*</label>
+        <input formControlName="street" class="w-full border rounded px-3 py-2" />
+      </div>
+      <div class="my-4">
+        <label class="block text-sm mb-1">Town / City*</label>
+        <input formControlName="city" class="w-full border rounded px-3 py-2" />
+      </div>
+      <div class="my-4">
+        <label class="block text-sm mb-1">Country*</label>
+        <input formControlName="country" class="w-full border rounded px-3 py-2" />
+      </div>
+      <div class="my-4">
+        <label class="block text-sm mb-1">Postcode / Zip*</label>
+        <input formControlName="zip" class="w-full border rounded px-3 py-2" />
+      </div>
+
+
+      <ng-button label="Proceed to Next Step" [filled]="true" [disabled]="!personalForm.valid"></ng-button>
+    </form>
+  }
+
+  <!-- Step 2: Billing (exemplo) -->
+  @if (step === 1) {
+    <form [formGroup]="billingForm" (ngSubmit)="nextStep()" class="space-y-4 p-4">
+      <div>
+        <label class="block text-sm mb-1">Cardholder Name*</label>
+        <input formControlName="cardName" class="w-full border rounded px-3 py-2" placeholder="Name on card" />
+      </div>
+      <div>
+        <label class="block text-sm mb-1">Card Number*</label>
+        <input formControlName="cardNumber" class="w-full border rounded px-3 py-2" maxlength="19" placeholder="1234 5678 9012 3456" />
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm mb-1">Expiry Date*</label>
+          <input formControlName="expiry" class="w-full border rounded px-3 py-2" placeholder="MM/YY" maxlength="5" />
+        </div>
+        <div>
+          <label class="block text-sm mb-1">CVV*</label>
+          <input formControlName="cvv" class="w-full border rounded px-3 py-2" maxlength="4" placeholder="123" />
+        </div>
+      </div>
+      <div class="flex justify-between">
+        <ng-button label="Back" [rounded]="true" (click)="prevStep()"></ng-button>
+        <ng-button label="Proceed to Next Step" [filled]="true" [rounded]="false" [disabled]="!billingForm.valid"></ng-button>
+      </div>
+    </form>
+  }
+
+  <!-- Step 3: Confirmation -->
+  @if (step === 2) {
+    <div class="p-4 flex justify-center items-center">
+      <div class="flex justify-center items-center flex-col w-[250px]">
+        <ng-icon name="octPackageDependents" size="100" class="text-green-600" />
+
+        <div class="flex flex-col items-center my-8">
+          <p class="text-center text-2xl font-semibold">All steps completed!</p>
+          <p class="text-center text-lg text-gray-500">Are you sure you want to finish the order?</p>
+        </div>
+
+        <div class="flex justify-between flex-row w-full">
+          <ng-button label="Back" [rounded]="true" (click)="prevStep()"></ng-button>
+          <ng-button label="Finish order" [filled]="true" [rounded]="false"></ng-button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

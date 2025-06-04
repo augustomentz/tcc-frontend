@@ -1,1 +1,56 @@
-<h1 class="text-red-500">Checkout</h1>
+<div class="p-4 pt-0 min-[1700px]:mx-[300px]">
+  <ng-title title="Checkout" size="5xlarge" [full]="true" [border]="true"></ng-title>
+
+  <div class="flex items-start gap-4 mt-4">
+    <div class="flex-1 rounded-lg overflow-hidden bg-white">
+      <app-checkout-steps></app-checkout-steps>
+    </div>
+
+    <div class="rounded-lg overflow-hidden bg-white">
+      <div class="bg-black text-white p-4 text-2xl">Cart Details</div>
+      <div class="w-full">
+        <div class="grid grid-cols-[1fr_150px_150px] border-b-2 border-x-0 border-t-0 border-y-0 border-dashed border-gray-300">
+          <div class="text-xl p-4 text-gray-600 uppercase">Product</div>
+          <div class="text-xl p-4 text-gray-600 text-center">Quantity</div>
+          <div class="text-xl p-4 text-gray-600 uppercase text-right">Subtotal</div>
+        </div>
+
+        <div class="border-b-2 border-x-0 border-t-0 border-y-0 border-dashed border-gray-300">
+          <div class="grid grid-cols-[1fr_150px_150px] items-center pt-4">
+            <div class="text-gray-600 px-4">Double Bed & Dressing</div>
+            <div class="text-center text-gray-400 font-mono px-4">01</div>
+            <div class="text-right text-gray-600 px-4">$180</div>
+          </div>
+          <div class="grid grid-cols-[1fr_150px_150px] items-center py-2">
+            <div class="text-gray-600 px-4">Double Bed & Dressing</div>
+            <div class="text-center text-gray-400 font-mono px-4">01</div>
+            <div class="text-right text-gray-600 px-4">$120</div>
+          </div>
+          <div class="grid grid-cols-[1fr_150px_150px] items-center pb-4">
+            <div class="text-gray-600 px-4">Double Bed & Dressing</div>
+            <div class="text-center text-gray-400 font-mono px-4">01</div>
+            <div class="text-right text-gray-600 px-4">$100</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 p-4 border-b-2 border-x-0 border-t-0 border-y-0 border-dashed border-gray-300">
+          <div class="text-gray-500 uppercase">Subtotal</div>
+          <div></div>
+          <div class="text-right text-gray-600">$400</div>
+        </div>
+
+        <div class="grid grid-cols-3 p-4 border-b-2 border-x-0 border-t-0 border-y-0 border-dashed border-gray-300">
+          <div class="text-gray-500 uppercase">Shipping</div>
+          <div></div>
+          <div class="text-right text-gray-600">$100</div>
+        </div>
+
+        <div class="grid grid-cols-3 p-4">
+          <div class="font-semibold text-gray-700 uppercase text-xl">Total</div>
+          <div></div>
+          <div class="text-right font-bold text-gray-700 text-xl">$500</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

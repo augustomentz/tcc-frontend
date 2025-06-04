@@ -32,18 +32,18 @@
       <p class="text-gray-400">Subtotal</p>
       <p class="text-right">{{ cart()?.total | currency }}</p>
 
-      <p class="text-gray-400">Discount ({{ cart()?.discount }}%)</p>
-      <p class="text-right text-red-500">{{ cart()?.total | currency }}</p>
+      <p class="text-gray-400">Discount ({{ (cart()?.discountPercentage ? (cart()?.discountPercentage ?? 0) / 100 : 0) | percent }})</p>
+      <p class="text-right text-red-500">{{ cart()?.discount ?? 0 | currency }}</p>
 
-      <p class="text-gray-400">Delivery Fee</p>
-      <p class="text-right">{{ cart()?.deliveryFee | currency }}</p>
+      <p class="text-gray-400">Shipping</p>
+      <p class="text-right">{{ cart()?.shipping | currency }}</p>
   </div>
 
   <div class="flex justify-between mt-2 pt-2 border-t-[1px] border-solid border-b-0 border-x-0 border-y-0">
     <p class="text-xl">Total</p>
-    <p class="text-xl text-right">{{ cart()?.total | currency }}</p>
+    <p class="text-xl text-right">{{ ((cart()?.total ?? 0) - (cart()?.discount ?? 0)) + (cart()?.shipping ?? 0) | currency }}</p>
   </div>
 
-  <ng-button label="Go to checkout" [filled]="true" [full]="true" class="mt-4" />
+  <ng-button label="Go to checkout" [filled]="true" [full]="true" class="mt-4" (click)="goToCheckout()" />
 </div>
 

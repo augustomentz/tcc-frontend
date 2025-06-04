@@ -8,10 +8,6 @@ export const routes: Routes = [
     loadComponent: () => loadRemoteModule(REMOTE_CATALOG.name, REMOTE_CATALOG.exposedArtefact).then((m) => m.AppComponent),
   },
   {
-    path: 'cart',
-    loadComponent: () => loadRemoteModule(REMOTE_CART.name, REMOTE_CART.exposedArtefact).then((m) => m.AppComponent),
-  },
-  {
     path: 'checkout',
     loadComponent: () => loadRemoteModule(REMOTE_CHECKOUT.name, REMOTE_CHECKOUT.exposedArtefact).then((m) => m.AppComponent),
   }

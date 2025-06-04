@@ -1,8 +1,17 @@
 <main class="main" [@mainAnimation]="cartOpened() ? 'moved' : 'normal'">
-  <header class="flex justify-between items-center p-4 select-none">
+  <header class="flex justify-between items-center p-4 select-none" [ngClass]="{
+    'min-[1700px]:mx-[300px]': isCheckout()
+  }">
     <ng-title title="TCC AHM" size="4xlarge" [border]="true" class="logo" />
 
-    <ng-icon name="ionCart" size="24" (click)="toggleCart()" class="cursor-pointer" />
+    @if (isCheckout()) {
+      <button class="flex items-center gap-2 border-none cursor-pointer" (click)="onBackToProducts()">
+        <ng-icon name="octTrackedByClosedNotPlanned" size="20" class="cursor-pointer" />
+        <span class="leading-[12px] mt-[2px]">Cancel order and back to products</span>
+      </button>
+    } @else {
+      <ng-icon name="ionCart" size="24" (click)="toggleCart()" class="cursor-pointer" />
+    }
   </header>
 
   <div class="max-h-[calc(100dvh-80px)] overflow-y-auto custom-scrollbar">

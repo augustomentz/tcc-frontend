@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { ApiResponse, Cart } from "projects/frontend-lib/src/lib/types";
+import { ApiResponse, Cart, Origin } from "projects/frontend-lib/src/lib/types";
 import { map, Observable } from "rxjs";
 import { environment } from "projects/environments/enviroment";
 
@@ -13,7 +13,7 @@ export class CartService {
   addItemToCart(productId: string): Observable<Boolean> {
     const cartId = localStorage.getItem('cart_id');
 
-    return this.http.post<ApiResponse<Boolean>>(`${environment.api.cart}/cart/${cartId}/${productId}`, null).pipe(
+    return this.http.post<ApiResponse<Boolean>>(`${environment.api.cart}/cart/update-item`, { cartId, itemId: productId, origin: Origin.CATALOG }).pipe(
       map((result: ApiResponse<Boolean>) => result.data)
     );
   }

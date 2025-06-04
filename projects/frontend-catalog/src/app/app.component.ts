@@ -1,5 +1,5 @@
 import { CurrencyPipe, PercentPipe } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from 'projects/frontend-lib/src/lib/components/button/button.component';
 import { CardComponent } from 'projects/frontend-lib/src/lib/components/card/card.component';
@@ -13,6 +13,7 @@ import { CartService } from './services/cart.service';
   imports: [CardComponent, ButtonComponent, CurrencyPipe, FormsModule, RatingComponent, PercentPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   products = signal<Product[]>([]);

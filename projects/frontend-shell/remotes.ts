@@ -25,7 +25,7 @@ export const REMOTE_CHECKOUT: Remote = {
 export const REMOTES: Record<string, string> = {
 	[REMOTE_CART.name]: REMOTE_CART.url,
 	[REMOTE_CATALOG.name]: REMOTE_CATALOG.url,
-	// [REMOTE_CHECKOUT.name]: REMOTE_CHECKOUT.url,
+	[REMOTE_CHECKOUT.name]: REMOTE_CHECKOUT.url,
 }
 
 

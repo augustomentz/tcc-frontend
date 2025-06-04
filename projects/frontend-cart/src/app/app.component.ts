@@ -1,8 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { CartService } from './services/cart.service';
 import { Cart } from 'projects/frontend-lib/src/lib/types';
-import { CurrencyPipe, JsonPipe } from '@angular/common';
+import { CurrencyPipe, PercentPipe } from '@angular/common';
 import { TitleComponent } from 'projects/frontend-lib/src/lib/components/title/title.component';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { ionTrash } from '@ng-icons/ionicons';
@@ -11,15 +11,17 @@ import { ButtonComponent } from 'projects/frontend-lib/src/public-api';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [TitleComponent, CurrencyPipe, NgIcon, CounterComponent, ButtonComponent],
+  imports: [TitleComponent, CurrencyPipe, NgIcon, CounterComponent, ButtonComponent, PercentPipe],
   templateUrl: './app.component.html',
   viewProviders: [provideIcons({ ionTrash })],
   styleUrl: './app.component.scss',
-  providers: [CurrencyPipe]
+  providers: [CurrencyPipe, PercentPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   cartService = inject(CartService);
   cart = signal<Cart | null>(null);
+  router = inject(Router);
 
   ngOnInit() {
     this.getCart();
@@ -42,8 +44,14 @@ export class AppComponent {
   }
 
   onCounterChange(itemId: string, event: any) {
-    this.cartService.addItemToCart(this.cart()!.id, itemId).subscribe({
+    this.cartService.addItemToCart(this.cart()!.id, itemId, event).subscribe({
       next: () => this.getCart()
     });
+  }
+
+  goToCheckout() {
+    window.dispatchEvent(new CustomEvent('cart:close'));
+
+    this.router.navigate(['/checkout']);
   }
 }

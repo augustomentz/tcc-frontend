@@ -1,4 +1,4 @@
-import { Component, output, input, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, output, input, signal, ChangeDetectionStrategy, effect } from '@angular/core';
 
 @Component({
   selector: 'ng-counter',
@@ -16,8 +16,12 @@ export class CounterComponent {
 
   value = signal(1);
 
-  ngOnInit() {
-    this.value.set(this.initial());
+  constructor() {
+    effect(() => {
+      if (this.initial()) {
+        this.value.set(this.initial());
+      }
+    }, { allowSignalWrites: true });
   }
 
   decrement() {

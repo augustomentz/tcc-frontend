@@ -13,6 +13,8 @@ export class ButtonComponent {
   filled = input<boolean>(false);
   full = input<boolean>(false);
   size = input<'small' | 'medium' | 'large'>('medium');
+  rounded = input<boolean>(false);
+  disabled = input<boolean>(false);
 
   onClick = output<void>();
 

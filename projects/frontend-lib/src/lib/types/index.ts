@@ -21,7 +21,7 @@ export type Cart = {
   total: number;
   discountPercentage: number;
   discount: number;
-  deliveryFee: number;
+  shipping: number;
 }
 
 export type Product = {
@@ -34,4 +34,9 @@ export type Product = {
   stock: number;
   rating: number;
   img: string;
+}
+
+export enum Origin {
+  CART = 'CART',
+  CATALOG = 'CATALOG'
 }
