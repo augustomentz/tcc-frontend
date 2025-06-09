@@ -7,7 +7,7 @@
     @if (isCheckout()) {
       <button class="flex items-center gap-2 border-none cursor-pointer" (click)="onBackToProducts()">
         <ng-icon name="octTrackedByClosedNotPlanned" size="20" class="cursor-pointer" />
-        <span class="leading-[12px] mt-[2px]">Cancel order and back to products.</span>
+        <span class="leading-[12px] mt-[2px]">Cancel order and back to products</span>
       </button>
     } @else {
       <ng-icon name="ionCart" size="24" (click)="toggleCart()" class="cursor-pointer" />
