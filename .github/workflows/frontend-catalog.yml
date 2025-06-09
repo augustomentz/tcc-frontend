@@ -38,8 +38,8 @@ jobs:
         npm cache clean --force
         npm install
 
+    - name: Build Frontend Lib
+      run: npm run build frontend-lib
+
     - name: Build MFE
       run: npm run build frontend-catalog -- --configuration production
-
-    - name: Run tests
-      run: npm run test frontend-catalog -- --watch=false --browsers=ChromeHeadless

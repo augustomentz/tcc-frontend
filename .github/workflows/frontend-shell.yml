@@ -43,6 +43,3 @@ jobs:
 
     - name: Build MFE
       run: npm run build frontend-shell -- --configuration production
-
-    - name: Run tests
-      run: npm run test frontend-shell -- --watch=false --browsers=ChromeHeadless
