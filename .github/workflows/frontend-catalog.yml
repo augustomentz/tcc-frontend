@@ -1,4 +1,4 @@
-name: Catalog MFE CI/CD
+name: mfe-catalog
 
 on:
   push:

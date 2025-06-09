@@ -1,4 +1,4 @@
-name: Checkout MFE CI/CD
+name: mfe-checkout
 
 on:
   push:

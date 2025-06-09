@@ -1,4 +1,4 @@
-name: Cart MFE CI/CD
+name: mfe-cart
 
 on:
   push:

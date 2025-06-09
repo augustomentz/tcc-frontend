@@ -1,4 +1,4 @@
-name: Shell MFE CI/CD
+name: mfe-shell
 
 on:
   push:
