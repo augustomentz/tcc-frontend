@@ -1,5 +1,5 @@
-<button (click)="onClickHandler()" class="cursor-pointer py-2 px-4 text-white" [ngClass]="{
-  'bg-slate-950 border-none': filled(),
+<button (click)="onClickHandler()" class="cursor-pointer py-2 px-4" [ngClass]="{
+  'bg-slate-950 border-none text-white': filled(),
   'bg-transparent text-black border-2 border-solid border-neutral-950': !filled(),
   'w-full': full(),
   'text-sm': size() === 'small',

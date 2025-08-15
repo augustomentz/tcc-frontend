@@ -56,17 +56,16 @@
         <input formControlName="zip" class="w-full border rounded px-3 py-2" />
       </div>
 
-
       <ng-button label="Proceed to Next Step" [filled]="true" [disabled]="!personalForm.valid"></ng-button>
     </form>
   }
 
-  <!-- Step 2: Billing (exemplo) -->
+  <!-- Step 2: Billing -->
   @if (step === 1) {
     <form [formGroup]="billingForm" (ngSubmit)="nextStep()" class="space-y-4 p-4">
       <div>
         <label class="block text-sm mb-1">Cardholder Name*</label>
-        <input formControlName="cardName" class="w-full border rounded px-3 py-2" placeholder="Name on card" />
+        <input formControlName="cardholder" class="w-full border rounded px-3 py-2" placeholder="Name on card" />
       </div>
       <div>
         <label class="block text-sm mb-1">Card Number*</label>
@@ -102,7 +101,7 @@
 
         <div class="flex justify-between flex-row w-full">
           <ng-button label="Back" [rounded]="true" (click)="prevStep()"></ng-button>
-          <ng-button label="Finish order" [filled]="true" [rounded]="false"></ng-button>
+          <ng-button label="Finish order" [filled]="true" [rounded]="false" (click)="finish()"></ng-button>
         </div>
       </div>
     </div>

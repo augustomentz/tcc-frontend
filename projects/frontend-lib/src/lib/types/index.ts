@@ -40,3 +40,31 @@ export enum Origin {
   CART = 'CART',
   CATALOG = 'CATALOG'
 }
+
+export type Address = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  street: string;
+  city: string;
+  country: string;
+  zip: string;
+}
+
+export type Payment = {
+  cardholder: string;
+  cardNumber: string;
+  expiry: string;
+  cvv: string;
+}
+
+export type Sale = {
+  id?: string;
+  total: number;
+  address: Address;
+  payment: Payment;
+  cartId: string
+  productsAmount: number
+}
+

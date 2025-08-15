@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { CartService } from './services/cart.service';
 import { Cart } from 'projects/frontend-lib/src/lib/types';
@@ -8,6 +8,8 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { ionTrash } from '@ng-icons/ionicons';
 import { CounterComponent } from 'projects/frontend-lib/src/lib/components/counter/counter.component';
 import { ButtonComponent } from 'projects/frontend-lib/src/public-api';
+import { v4 as uuidv4 } from 'uuid';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -27,6 +29,15 @@ export class AppComponent {
     this.getCart();
 
     window.addEventListener('cart:update', () => this.getCart());
+    window.addEventListener('cart:restart', () => {
+      localStorage.removeItem('cart_id');
+
+      const uuid = uuidv4();
+
+      localStorage.setItem('cart_id', uuid);
+
+      this.getCart();
+    });
   }
 
   getCart() {

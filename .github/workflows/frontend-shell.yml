@@ -9,14 +9,6 @@ on:
       - 'package.json'
       - 'angular.json'
       - 'tsconfig.json'
-  pull_request:
-    branches: [ main ]
-    paths:
-      - 'projects/frontend-shell/**'
-      - 'projects/frontend-lib/**'
-      - 'package.json'
-      - 'angular.json'
-      - 'tsconfig.json'
 
 jobs:
   build-and-test:
