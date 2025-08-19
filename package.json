@@ -6,7 +6,15 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:shell": "ng build --project=frontend-shell --configuration=production",
+    "build:cart": "ng build --project=frontend-cart --configuration=production",
+    "build:catalog": "ng build --project=frontend-catalog --configuration=production",
+    "build:checkout": "ng build --project=frontend-checkout --configuration=production",
+    "build:lib": "ng build --project=frontend-lib --configuration=production",
+    "build:all": "npm run build:shell && npm run build:cart && npm run build:catalog && npm run build:checkout",
+    "start:shell": "ng serve --project=frontend-shell",
+    "watch:shell": "ng build --project=frontend-shell --watch --configuration=development"
   },
   "private": true,
   "dependencies": {

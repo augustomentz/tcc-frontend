@@ -4,17 +4,17 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm install
+RUN npm ci
 
 COPY . .
 
-RUN npm run build:checkout
+RUN npm run build:{application}
 
 FROM nginx:alpine
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-COPY --from=build /app/dist/frontend-checkout/browser/* /usr/share/nginx/html/
+COPY --from=build /app/dist/{application}/browser/* /usr/share/nginx/html/
 
 EXPOSE 80
 

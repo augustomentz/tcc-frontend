@@ -1,12 +1,21 @@
-# Única Etapa: Build com Node.js para gerar artefatos estáticos (sem runtime)
-FROM node:20-alpine AS build
+FROM node:20 AS build
 
 WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm ci --Production
+RUN npm install
 
 COPY . .
 
-RUN npm run build --prod
+RUN npm run build:catalog
+
+FROM nginx:alpine
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=build /app/dist/frontend-catalog/browser/* /usr/share/nginx/html/
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
