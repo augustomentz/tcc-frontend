@@ -63,7 +63,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: . # Use root as context (adjust if submodule)
+          context: ./frontend-shell # Use root as context (adjust if submodule)
           push: ${{ github.event_name != 'pull_request' }} # Push only on pushes/tags
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
