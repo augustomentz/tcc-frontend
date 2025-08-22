@@ -9,6 +9,7 @@ on:
       - 'package.json'
       - 'angular.json'
       - 'tsconfig.json'
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
