@@ -9,7 +9,12 @@ on:
       - 'package.json'
       - 'angular.json'
       - 'tsconfig.json'
-
+  workflow_dispatch:  # Add this for manual triggers (ignores paths)
+      inputs:  # Optional: Allow custom inputs when running manually
+        environment:  # Example input for overrides
+          description: 'Environment to build for (e.g., production)'
+          required: false
+          default: 'production'
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
