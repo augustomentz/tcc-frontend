@@ -48,6 +48,9 @@ jobs:
           
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3 # Enables cache support
+
+      - name: Debug paths
+        run: ls -la ./projects/frontend-shell
         
       - name: Extract Docker metadata (tags, labels)
         id: meta
