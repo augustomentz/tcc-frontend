@@ -6,7 +6,7 @@ on:
     paths:
       - 'projects/frontend-checkout/**'
       - 'projects/frontend-lib/**'
-      - '.github/workflows/*'
+      - '.github/workflows/frontend-checkout.yml*'
       - 'package.json'
       - 'angular.json'
       - 'tsconfig.json'
