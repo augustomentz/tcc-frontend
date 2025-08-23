@@ -59,8 +59,10 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ahmentz/tcc-frontend # ex.: ahmentz/tcc-frontend
+          flavor: |
+            prefix=tcc-frontend-checkout-
           tags: |
-            type=ref,event=branch
+            type=ref,event=branch  # Prefixo para shell
             type=ref,event=tag
             type=sha
             latest
