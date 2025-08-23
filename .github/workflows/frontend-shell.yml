@@ -58,12 +58,12 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ahmentz/tcc-frontend # ex.: ahmentz/tcc-frontend
+          images: ahmentz/tcc-frontend
           tags: |
-            type=ref,event=branch
-            type=ref,event=tag
-            type=sha
-            latest
+            frontend-shell:type=ref,event=branch  # Prefixo para shell
+            frontend-shell:type=ref,event=tag
+            frontend-shell:type=sha
+            frontend-shell:latest
            
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
