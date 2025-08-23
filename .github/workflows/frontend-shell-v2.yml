@@ -53,6 +53,12 @@ jobs:
         run: |
           ls -la projects/frontend-shell
           cat projects/frontend-shell/Dockerfile
+
+      - name: Debug Docker parameters
+        run: |
+           echo "Context: ."
+           echo "File: projects/frontend-shell/Dockerfile"
+           ls -la projects/frontend-shell/Dockerfile || echo "File not found in listing"
        
       - name: Extract Docker metadata (tags, labels)
         id: meta
@@ -68,7 +74,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./projects/frontend-shell  # Change to subdirectory for correct path resolution
+          context: projects/frontend-shell  # Change to subdirectory for correct path resolution
           file: Dockerfile  # Relative to new context (no need for full path)
           push: ${{ github.event_name != 'pull_request' }} # Push only on pushes/tags
           tags: ${{ steps.meta.outputs.tags }}
