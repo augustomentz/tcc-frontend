@@ -6,7 +6,7 @@ on:
     paths:
       - 'projects/frontend-shell/**'
       - 'projects/frontend-lib/**'
-      - '.github/workflows/*'
+      - '.github/workflows/frontend-shell.yml'
       - 'package.json'
       - 'angular.json'
       - 'tsconfig.json'
