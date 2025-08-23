@@ -9,12 +9,13 @@ on:
       - 'package.json'
       - 'angular.json'
       - 'tsconfig.json'
-  workflow_dispatch:  # Add this for manual triggers (ignores paths)
-      inputs:  # Optional: Allow custom inputs when running manually
-        environment:  # Example input for overrides
-          description: 'Environment to build for (e.g., production)'
-          required: false
-          default: 'production'
+  workflow_dispatch: # Add this for manual triggers (ignores paths)
+    inputs: # Optional: Allow custom inputs when running manually
+      environment: # Example input for overrides
+        description: 'Environment to build for (e.g., production)'
+        required: false
+        default: 'production'
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -49,11 +50,22 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3 # Enables cache support
 
+      - name: Debug file paths
+        run: |
+          ls -la projects/frontend-shell
+          cat projects/frontend-shell/Dockerfile
+
+      - name: Debug Docker parameters
+        run: |
+           echo "Context: ."
+           echo "File: projects/frontend-shell/Dockerfile"
+           ls -la projects/frontend-shell/Dockerfile || echo "File not found in listing"
+
       - name: Extract Docker metadata (tags, labels)
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ github.repository_owner }}/tcc-frontend # e.g., augustomentz/tcc-frontend
+          images: ahmentz/tcc-frontend # e.g., ahmentz/tcc-frontend
           tags: |
             type=ref,event=branch
             type=ref,event=tag
@@ -63,12 +75,11 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: . # Use root as context (adjust if submodule)
-          file: projects/frontend-shell/Dockerfile
+          context: projects/frontend-shell  # Change to subdirectory for correct path resolution
+          file: Dockerfile  # Relative to new context (no need for full path)
           push: ${{ github.event_name != 'pull_request' }} # Push only on pushes/tags
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max # Cache Docker layers for efficiency
           build-args: | # Optional overrides for build-time (e.g., for Angular env)
-            NODE_ENV=production
