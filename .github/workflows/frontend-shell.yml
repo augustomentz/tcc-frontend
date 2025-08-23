@@ -60,10 +60,10 @@ jobs:
         with:
           images: ahmentz/tcc-frontend
           tags: |
-            frontend-shell:type=ref,event=branch  # Prefixo para shell
-            frontend-shell:type=ref,event=tag
-            frontend-shell:type=sha
-            frontend-shell:latest
+            tcc-frontend-shell:type=ref,event=branch  # Prefixo para shell
+            tcc-frontend-shell:type=ref,event=tag
+            tcc-frontend-shell:type=sha
+            tcc-frontend-shell:latest
            
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
