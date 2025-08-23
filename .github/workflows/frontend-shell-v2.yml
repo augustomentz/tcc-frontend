@@ -47,8 +47,10 @@ jobs:
          
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3 # Enables cache support
-      - name: Debug paths
-        run: ls -la ./projects/frontend-shell
+      - name: Debug paths (ls)
+        run: ls -la ./projects/frontend-shell  # Confirma existência do arquivo
+      - name: Debug Dockerfile content (cat)
+        run: cat ./projects/frontend-shell/Dockerfile || echo "Arquivo não encontrado ou vazio"  # Imprime o conteúdo nos logs para verificação
        
       - name: Extract Docker metadata (tags, labels)
         id: meta
