@@ -1,4 +1,5 @@
 name: Build - MFE Shell
+
 on:
   push:
     branches: [ main ]
@@ -14,7 +15,6 @@ on:
         description: 'Ambiente para build (ex.: production)'
         required: false
         default: 'production'
-        
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -57,6 +57,12 @@ jobs:
       - name: Debug file head (first lines)
         run: head -n 10 ./projects/frontend-shell/Dockerfile || echo "Não foi possível ler o arquivo"  # Mostra primeiras linhas para ver se vazio
       
+      - name: Fallback: Copy Dockerfile to root context
+        run: cp ./projects/frontend-shell/Dockerfile ./Dockerfile  # Cópia para raiz como fallback para o Buildx
+      
+      - name: Debug after copy (ls root)
+        run: ls -la .  # Confirma cópia na raiz
+      
       - name: Extract Docker metadata (tags, labels)
         id: meta
         uses: docker/metadata-action@v5
@@ -71,8 +77,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./projects/frontend-shell  # Context no subdir para resolução direta
-          file: Dockerfile  # Relativo ao novo context (sem caminho completo)
+          context: . # Context raiz do repo (para acessar dist/ de builds npm)
+          file: ./Dockerfile  # Usa a cópia na raiz para evitar problemas de subdir no Buildx
           push: ${{ github.event_name != 'pull_request' }} # Push só em pushes/tags
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -81,3 +87,13 @@ jobs:
           build-args: | # Overrides opcionais para build-time (ex.: para env Angular)
             NODE_ENV=production
        
+      - name: Scan image for vulnerabilities (Optional)
+        if: github.event_name != 'pull_request'
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '${{ steps.meta.outputs.tags }}'
+          format: 'table'
+          exit-code: '1' # Falha em problemas críticos
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
