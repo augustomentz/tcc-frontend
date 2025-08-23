@@ -10,9 +10,9 @@ on:
       - 'package.json'
       - 'angular.json'
       - 'tsconfig.json'
-  workflow_dispatch: # Para triggers manuais (ignora paths)
-    inputs: # Opcional: Inputs personalizados para overrides
-      environment: # Exemplo de input para overrides
+  workflow_dispatch: # For manual triggers (ignore paths)
+    inputs: # Optional: Custom inputs for overrides
+      environment: # Example input for overrides
         description: 'Ambiente para build (ex.: production)'
         required: false
         default: 'production'
@@ -21,7 +21,7 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4  # Atualize para v4 para melhor resolução de paths em monorepos
+      - uses: actions/checkout@v4  # Update to v4 for better path resolution in monorepos
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -42,17 +42,17 @@ jobs:
         run: npm run build frontend-shell -- --configuration production
        
       - name: Log in to Docker Hub
-        if: github.event_name != 'pull_request' # Somente em pushes reais
+        if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }} # Use um access token do Docker Hub para segurança
+          password: ${{ secrets.DOCKER_PASSWORD }}
          
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3 # Habilita suporte a cache
+        uses: docker/setup-buildx-action@v3 # Enables cache
         
       - name: Copy Dockerfile to root context
-        run: cp ./projects/frontend-shell/Dockerfile ./Dockerfile  # Cópia para raiz como fallback para o Buildx
+        run: cp ./projects/frontend-shell/Dockerfile ./Dockerfile
       
       - name: Extract Docker metadata (tags, labels)
         id: meta
@@ -68,12 +68,12 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: . # Context raiz do repo (para acessar dist/ de builds npm)
-          file: ./Dockerfile  # Usa a cópia na raiz para evitar problemas de subdir no Buildx
-          push: ${{ github.event_name != 'pull_request' }} # Push só em pushes/tags
+          context: . # Root context of the repo (to access dist/ from npm builds)
+          file: ./Dockerfile # Uses the copy in root to avoid subdir issues in Buildx
+          push: ${{ github.event_name != 'pull_request' }} # Push only on pushes/tags
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max # Cache de camadas Docker para eficiência
-          build-args: | # Overrides opcionais para build-time (ex.: para env Angular)
+          cache-to: type=gha,mode=max # Cache Docker layers for efficiency
+          build-args: | # Optional overrides for build-time (e.g., for Angular env)
             NODE_ENV=production
