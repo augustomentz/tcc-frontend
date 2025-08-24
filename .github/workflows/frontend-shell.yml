@@ -60,7 +60,7 @@ jobs:
         with:
           images: ahmentz/tcc-frontend
           flavor: |
-            prefix=frontend-shell-
+            prefix=front-shell-
           tags: |
             type=ref,event=branch
             type=ref,event=tag
