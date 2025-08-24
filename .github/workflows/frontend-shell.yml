@@ -10,18 +10,18 @@ on:
       - 'package.json'
       - 'angular.json'
       - 'tsconfig.json'
-  workflow_dispatch: # For manual triggers (ignore paths)
-    inputs: # Optional: Custom inputs for overrides
-      environment: # Example input for overrides
-        description: 'Ambiente para build (ex.: production)'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
         required: false
-        default: 'production'
+        default: 'development'
         
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4  # Update to v4 for better path resolution in monorepos
+      - uses: actions/checkout@v4
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -49,7 +49,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
          
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3 # Enables cache
+        uses: docker/setup-buildx-action@v3
         
       - name: Copy Dockerfile to root context
         run: cp ./projects/frontend-shell/Dockerfile ./Dockerfile
@@ -60,9 +60,9 @@ jobs:
         with:
           images: ahmentz/tcc-frontend
           flavor: |
-            prefix=tcc-frontend-shell-
+            prefix=frontend-shell-
           tags: |
-            type=ref,event=branch  # Prefixo para shell
+            type=ref,event=branch
             type=ref,event=tag
             type=sha
             latest
@@ -70,12 +70,12 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: . # Root context of the repo (to access dist/ from npm builds)
-          file: ./Dockerfile # Uses the copy in root to avoid subdir issues in Buildx
-          push: ${{ github.event_name != 'pull_request' }} # Push only on pushes/tags
+          context: .
+          file: ./Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max # Cache Docker layers for efficiency
-          build-args: | # Optional overrides for build-time (e.g., for Angular env)
-            NODE_ENV=production
+          cache-to: type=gha,mode=max
+          build-args: |
+            NODE_ENV=development
