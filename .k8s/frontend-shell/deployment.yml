@@ -16,5 +16,6 @@ spec:
       containers:
         - name: shell
           image: ahmentz/tcc-frontend:front-shell-latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
