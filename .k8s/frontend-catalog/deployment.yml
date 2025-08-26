@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tcc-frontend-catalog
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tcc-frontend-catalog
+  template:
+    metadata:
+      labels:
+        app: tcc-frontend-catalog
+    spec:
+      containers:
+        - name: catalog
+          image: ahmentz/tcc-frontend:front-catalog-latest
+          ports:
+            - containerPort: 80
