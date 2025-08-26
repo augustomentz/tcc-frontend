@@ -13,7 +13,7 @@
       <ng-icon name="ionCart" size="24" (click)="toggleCart()" class="cursor-pointer" />
     }
   </header>
-
+  {{ remotes() | json }}
   <div class="max-h-[calc(100dvh-80px)] overflow-y-auto custom-scrollbar">
     <router-outlet />
   </div>

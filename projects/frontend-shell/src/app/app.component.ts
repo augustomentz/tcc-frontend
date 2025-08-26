@@ -7,14 +7,14 @@ import { TitleComponent } from 'projects/frontend-lib/src/lib/components/title/t
 import { cartAnimation, mainAnimation } from './animation';
 import { v4 as uuidv4 } from 'uuid';
 
-import { REMOTE_CART } from '@tcc/shell/remotes';
+import { REMOTE_CART, REMOTE_CATALOG, REMOTE_CHECKOUT } from '@tcc/shell/remotes';
 import { MicrofrontendLoaderDirective } from 'projects/frontend-lib/src/lib/directives/load-mfe.directive';
 import { filter, map } from 'rxjs/operators';
-import { NgClass } from '@angular/common';
+import { JsonPipe, NgClass } from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgIcon, TitleComponent, MicrofrontendLoaderDirective, NgClass],
+  imports: [RouterOutlet, NgIcon, TitleComponent, MicrofrontendLoaderDirective, NgClass, JsonPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   viewProviders: [provideIcons({ ionCart, octTrackedByClosedNotPlanned })],
@@ -28,8 +28,11 @@ export class AppComponent {
   isCheckout = signal(false);
 
   router = inject(Router);
+  remotes = signal<any[]>([REMOTE_CART, REMOTE_CATALOG, REMOTE_CHECKOUT]);
 
   ngOnInit() {
+
+
     this
       .router
       .events
