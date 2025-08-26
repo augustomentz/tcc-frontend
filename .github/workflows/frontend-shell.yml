@@ -19,7 +19,7 @@ on:
         default: 'development'
 
 jobs:
-  build-and-test:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -83,7 +83,7 @@ jobs:
 
   deploy-to-gke:
     runs-on: ubuntu-latest
-    needs: build-test-push
+    needs: build-and-push
     if: github.event_name != 'pull_request'
     steps:
       - name: Checkout code
