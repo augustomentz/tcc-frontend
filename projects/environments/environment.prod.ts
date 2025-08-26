@@ -1,4 +1,5 @@
 export const environment = {
+  production: true,
   api: {
     catalog: 'http://34.95.241.39:8000',
     cart: 'http://34.95.206.140:8001',
