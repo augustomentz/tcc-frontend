@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tcc-frontend-shell
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tcc-frontend-shell
+  template:
+    metadata:
+      labels:
+        app: tcc-frontend-shell
+    spec:
+      containers:
+        - name: shell
+          image: ahmentz/tcc-frontend:front-shell-latest
+          ports:
+            - containerPort: 80
