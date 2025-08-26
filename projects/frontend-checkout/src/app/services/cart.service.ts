@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { environment } from "projects/environments/enviroment";
+import { environment } from "projects/environments/environment";
 import { ApiResponse, Cart } from "projects/frontend-lib/src/public-api";
 import { map, Observable } from "rxjs";
 

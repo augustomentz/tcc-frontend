@@ -2,7 +2,7 @@ import { inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { ApiResponse, Cart, Origin } from "projects/frontend-lib/src/lib/types";
 import { map, Observable } from "rxjs";
-import { environment } from "projects/environments/enviroment";
+import { environment } from "projects/environments/environment";
 
 @Injectable({
   providedIn: 'root'

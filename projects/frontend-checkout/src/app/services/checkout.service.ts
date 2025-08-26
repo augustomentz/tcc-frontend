@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Address, ApiResponse, Cart, Payment, Sale } from "@frontend-lib";
-import { environment } from "projects/environments/enviroment";
+import { environment } from "projects/environments/environment";
 import { map, Observable, of } from "rxjs";
 
 @Injectable({

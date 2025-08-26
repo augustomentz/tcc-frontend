@@ -1,4 +1,4 @@
-import { environment } from "projects/environments/enviroment"
+import { environment } from "projects/environments/environment"
 
 interface Remote {
 	name: string
