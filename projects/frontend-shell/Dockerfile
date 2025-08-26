@@ -10,14 +10,12 @@ COPY . .
 
 RUN npm run build:shell
 
-FROM node:20-slim
+FROM nginx:alpine
 
-WORKDIR /app
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-COPY --from=build /app/dist/frontend-shell/browser /app
+COPY --from=build /app/dist/frontend-shell/browser/* /usr/share/nginx/html/
 
-RUN npm install -g http-server
+EXPOSE 80
 
-EXPOSE 8080
-
-CMD ["http-server", "/app", "-p", "8080"]
+CMD ["nginx", "-g", "daemon off;"]
