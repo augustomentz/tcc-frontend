@@ -105,9 +105,9 @@ jobs:
 
       - name: Deploy to GKE
         run: |
-          kubectl apply -f ./.k8s/frontend-shell/deployment.yaml
-          kubectl apply -f ./.k8s/frontend-shell/service.yaml
-          kubectl apply -f ./.k8s/frontend-shell/ingress.yaml
+          kubectl apply -f .k8s/frontend-shell/deployment.yaml
+          kubectl apply -f .k8s/frontend-shell/service.yaml
+          kubectl apply -f .k8s/frontend-shell/ingress.yaml
 
       - name: Verify Deployment
         run: kubectl rollout status deployment/tcc-frontend-shell --timeout=120s
