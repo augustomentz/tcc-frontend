@@ -1,3 +1,5 @@
+import { environment } from "projects/environments/enviroment"
+
 interface Remote {
 	name: string
 	url: string
@@ -6,19 +8,19 @@ interface Remote {
 
 export const REMOTE_CART: Remote = {
 	name: 'frontend-cart',
-	url: 'http://localhost:4201/remoteEntry.json',
+	url: `${environment.mfe.cart}/remoteEntry.json`,
 	exposedArtefact: './Component'
 }
 
 export const REMOTE_CATALOG: Remote = {
 	name: 'frontend-catalog',
-	url: 'http://localhost:4202/remoteEntry.json',
+	url: `${environment.mfe.catalog}/remoteEntry.json`,
 	exposedArtefact: './Component'
 }
 
 export const REMOTE_CHECKOUT: Remote = {
 	name: 'frontend-checkout',
-	url: 'http://localhost:4203/remoteEntry.json',
+	url: `${environment.mfe.checkout}/remoteEntry.json`,
 	exposedArtefact: './Component'
 }
 
