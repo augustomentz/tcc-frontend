@@ -111,7 +111,7 @@ jobs:
 
       - name: Update Deployment with New Tag
         run: |
-          TAG=${{ needs.build-test-push.outputs.TAG }}
+          TAG=${{ needs.build-and-push.outputs.TAG }}
           if [ -z "$TAG" ]; then
             echo "Error: TAG is empty"
             exit 1
