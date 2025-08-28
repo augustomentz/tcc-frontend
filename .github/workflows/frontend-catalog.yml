@@ -65,7 +65,7 @@ jobs:
           echo "Building with image tag: $NEW_TAG"
 
       - name: Copy Dockerfile to root context
-        run: cp ./projects/frontend-shell/Dockerfile ./Dockerfile
+        run: cp ./projects/frontend-catalog/Dockerfile ./Dockerfile
 
       - name: Extract Docker metadata (tags, labels)
         id: meta
