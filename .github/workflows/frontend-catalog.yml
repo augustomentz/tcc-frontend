@@ -39,10 +39,10 @@ jobs:
           npm install
 
       - name: Build Frontend Lib
-        run: npm run build:catalog
+        run: npm run build:lib
 
       - name: Build MFE
-        run: npm run build frontend-catalog -- --configuration production
+        run: npm run build:catalog
 
       - name: Log in to Docker Hub
         if: github.event_name != 'pull_request'
