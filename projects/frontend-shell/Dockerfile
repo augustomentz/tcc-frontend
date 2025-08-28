@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN npm run build:lib
+
 RUN npm run build:shell
 
 FROM nginx:alpine

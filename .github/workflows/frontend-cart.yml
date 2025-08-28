@@ -10,16 +10,19 @@ on:
       - 'package.json'
       - 'angular.json'
       - 'tsconfig.json'
+      - '.k8s/frontend-cart/*'
   workflow_dispatch:
     inputs:
       environment:
         description: 'Environment'
         required: false
         default: 'development'
-        
+
 jobs:
-  build-and-test:
+  build-and-push:
     runs-on: ubuntu-latest
+    outputs:
+      TAG: ${{ steps.version.outputs.TAG }}
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js
@@ -28,32 +31,34 @@ jobs:
           node-version: '18'
           cache: 'npm'
           cache-dependency-path: package-lock.json
-         
+
       - name: Clean install
         run: |
           rm -rf node_modules package-lock.json
           npm cache clean --force
           npm install
-         
-      - name: Build Frontend Lib
-        run: npm run build frontend-lib
-       
-      - name: Build MFE
-        run: npm run build frontend-cart -- --configuration production
-       
+
       - name: Log in to Docker Hub
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-         
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-        
+
+      - name: Generate Semantic Version Tag
+        id: version
+        run: |
+          RUN_NUMBER=${{ github.run_number }}
+          NEW_TAG="0.0.$RUN_NUMBER"
+          echo "TAG=$NEW_TAG" >> $GITHUB_OUTPUT
+          echo "Building with image tag: $NEW_TAG"
+
       - name: Copy Dockerfile to root context
-        run: cp ./projects/frontend-shell/Dockerfile ./Dockerfile
-      
+        run: cp ./projects/frontend-cart/Dockerfile ./Dockerfile
+
       - name: Extract Docker metadata (tags, labels)
         id: meta
         uses: docker/metadata-action@v5
@@ -62,11 +67,8 @@ jobs:
           flavor: |
             prefix=front-cart-
           tags: |
-            type=ref,event=branch
-            type=ref,event=tag
-            type=sha
-            latest
-           
+            type=semver,pattern={{version}},value=${{ steps.version.outputs.TAG }}
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
@@ -78,4 +80,46 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
-            NODE_ENV=development
+            NODE_ENV=production
+
+  deploy-to-gke:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: github.event_name != 'pull_request'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up gcloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          version: 'latest'
+          project_id: tcc-cluster-k8s
+          install_components: 'gke-gcloud-auth-plugin'
+
+      - name: Configure kubectl with gcloud auth
+        run: |
+          echo "${{ secrets.GCP_CREDENTIALS }}" | base64 --decode > /tmp/gcp-credentials.json
+          gcloud auth activate-service-account --key-file=/tmp/gcp-credentials.json
+          gcloud container clusters get-credentials cluster-tcc-1 --zone southamerica-east1 --project tcc-cluster-k8s
+
+      - name: Update Deployment with New Tag
+        run: |
+          TAG=${{ needs.build-and-push.outputs.TAG }}
+          if [ -z "$TAG" ]; then
+            echo "Error: TAG is empty"
+            exit 1
+          fi
+          sed -i "s|:front-cart-latest|:front-cart-$TAG|g" ./.k8s/frontend-cart/deployment.yml
+          echo "Updated image tag to $TAG in deployment.yml"
+
+      - name: Deploy to GKE
+        run: |
+          kubectl apply -f ./.k8s/frontend-cart/deployment.yml
+          kubectl apply -f ./.k8s/frontend-cart/service.yml
+
+      - name: Verify Deployment
+        run: kubectl rollout status deployment/tcc-frontend-cart --timeout=120s
+
+      - name: Get Service URL (for testing)
+        run: kubectl get svc frontend-cart-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
