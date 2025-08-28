@@ -36,15 +36,7 @@ jobs:
         run: |
           rm -rf node_modules package-lock.json
           npm cache clean --force
-          npm install
-
-      - name: Build Frontend Lib
-        run: npm run build:lib
-
-      - name: Build MFE
-        run: |
-            npm run build:catalog
-            cat dist/frontend-catalog/browser/remoteEntry.json
+          npm ci
 
       - name: Log in to Docker Hub
         if: github.event_name != 'pull_request'
