@@ -42,7 +42,9 @@ jobs:
         run: npm run build:lib
 
       - name: Build MFE
-        run: npm run build:catalog
+        run: |
+            npm run build:catalog
+            cat dist/frontend-catalog/browser/remoteEntry.json
 
       - name: Log in to Docker Hub
         if: github.event_name != 'pull_request'
