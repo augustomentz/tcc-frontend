@@ -6,7 +6,7 @@ export const environment = {
     checkout: 'http://35.198.3.27:8002'
   },
   mfe: {
-    catalog: 'http://34.118.233.215',
+    catalog: 'http://34.54.141.101/catalog',
     cart: 'http://localhost:4201',
     checkout: 'http://localhost:4203'
   }
