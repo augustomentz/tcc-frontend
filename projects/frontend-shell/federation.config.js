@@ -2,7 +2,7 @@ const { withNativeFederation, shareAll, share } = require('@angular-architects/n
 
 module.exports = withNativeFederation({
   shared: {
-    ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto', transient: true }),
+    ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
   },
   skip: [
     'rxjs/ajax',

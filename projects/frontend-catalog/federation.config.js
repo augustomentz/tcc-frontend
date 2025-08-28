@@ -6,7 +6,7 @@ module.exports = withNativeFederation({
     './Component': './projects/frontend-catalog/src/app/app.component.ts',
   },
   shared: {
-    ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto', transient: true }),
+    ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
   },
   skip: [
     'rxjs/ajax',
