@@ -1,17 +1,3 @@
-FROM node:20 AS build
-
-WORKDIR /app
-
-COPY package.json package-lock.json ./
-
-RUN npm ci
-
-COPY . .
-
-RUN rm -rf dist/frontend-catalog
-
-RUN npm run build:catalog
-
 FROM nginx:alpine
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
