@@ -11,6 +11,7 @@ import { REMOTE_CART, REMOTE_CATALOG, REMOTE_CHECKOUT } from '@tcc/shell/remotes
 import { MicrofrontendLoaderDirective } from 'projects/frontend-lib/src/lib/directives/load-mfe.directive';
 import { filter, map } from 'rxjs/operators';
 import { JsonPipe, NgClass } from '@angular/common';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -28,11 +29,8 @@ export class AppComponent {
   isCheckout = signal(false);
 
   router = inject(Router);
-  remotes = signal<any[]>([REMOTE_CART, REMOTE_CATALOG, REMOTE_CHECKOUT]);
 
   ngOnInit() {
-
-
     this
       .router
       .events
