@@ -4,9 +4,11 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm install
+RUN npm ci
 
 COPY . .
+
+RUN rm -rf dist/frontend-catalog
 
 RUN npm run build:catalog
 
