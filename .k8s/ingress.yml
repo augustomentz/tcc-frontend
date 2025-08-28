@@ -16,3 +16,10 @@ spec:
                 name: frontend-shell-service
                 port:
                   number: 80
+          - path: /catalog
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend-catalog-service
+                port:
+                  number: 80

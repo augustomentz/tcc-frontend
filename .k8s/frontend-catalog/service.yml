@@ -4,9 +4,9 @@ metadata:
   name: frontend-catalog-service
   namespace: default
 spec:
+  type: ClusterIP
   selector:
     app: tcc-frontend-catalog
   ports:
     - port: 80
       targetPort: 80
-  type: ClusterIP

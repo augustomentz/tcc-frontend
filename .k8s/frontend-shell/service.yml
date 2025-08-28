@@ -4,10 +4,9 @@ metadata:
   name: frontend-shell-service
   namespace: default
 spec:
+  type: ClusterIP
   selector:
     app: tcc-frontend-shell
   ports:
     - port: 80
       targetPort: 80
-      protocol: TCP
-  type: NodePort
