@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tcc-frontend-checkout
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tcc-frontend-checkout
+  template:
+    metadata:
+      labels:
+        app: tcc-frontend-checkout
+    spec:
+      containers:
+        - name: checkout
+          image: ahmentz/tcc-frontend:front-checkout-latest
+          ports:
+            - containerPort: 80

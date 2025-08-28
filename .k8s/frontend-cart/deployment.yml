@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tcc-frontend-cart
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tcc-frontend-cart
+  template:
+    metadata:
+      labels:
+        app: tcc-frontend-cart
+    spec:
+      containers:
+        - name: cart
+          image: ahmentz/tcc-frontend:front-cart-latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80

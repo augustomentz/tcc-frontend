@@ -9,6 +9,13 @@ spec:
   rules:
     - http:
         paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend-shell-service
+                port:
+                  number: 80
           - path: /catalog
             pathType: Prefix
             backend:
@@ -16,10 +23,17 @@ spec:
                 name: frontend-catalog-service
                 port:
                   number: 80
-          - path: /
+          - path: /cart
             pathType: Prefix
             backend:
               service:
-                name: frontend-shell-service
+                name: frontend-cart-service
+                port:
+                  number: 80
+          - path: /checkout
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend-checkout-service
                 port:
                   number: 80
