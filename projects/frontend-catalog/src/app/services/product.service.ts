@@ -11,13 +11,13 @@ export class ProductService {
   http = inject(HttpClient);
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<ApiResponse<Product[]>>(`${environment.api.catalog}/products`).pipe(
+    return this.http.get<ApiResponse<Product[]>>(`${environment.api.catalog}/catalog`).pipe(
       map((result: ApiResponse<Product[]>) => result.data)
     );
   }
 
   updateRating(productId: string, rating: number): Observable<Product> {
-    return this.http.put<ApiResponse<Product>>(`${environment.api.catalog}/products/${productId}/${rating}`, null).pipe(
+    return this.http.put<ApiResponse<Product>>(`${environment.api.catalog}/catalog/${productId}/${rating}`, null).pipe(
       map((result: ApiResponse<Product>) => result.data)
     );
   }

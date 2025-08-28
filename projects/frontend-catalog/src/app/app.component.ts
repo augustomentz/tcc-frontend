@@ -7,6 +7,7 @@ import { RatingComponent } from 'projects/frontend-lib/src/lib/components/rating
 import { ProductService } from './services/product.service';
 import { Product } from 'projects/frontend-lib/src/lib/types';
 import { CartService } from './services/cart.service';
+import { environment } from 'projects/environments/environment';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -22,6 +23,7 @@ export class AppComponent {
   cartService = inject(CartService);
 
   ngOnInit() {
+    console.log(environment);
     this.productService.getProducts().subscribe({
       next: (result: Product[]) => this.products.set(result),
       error: (error: any) => console.error(error)
