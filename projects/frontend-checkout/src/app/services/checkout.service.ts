@@ -21,7 +21,7 @@ export class CheckoutService {
       productsAmount: cart.products.length
     }
 
-    return this.http.post<ApiResponse<Sale>>(`${environment.api.checkout}/sales`, sale).pipe(
+    return this.http.post<ApiResponse<Sale>>(`${environment.api.checkout}/checkout`, sale).pipe(
       map((result: ApiResponse<Sale>) => result.data)
     )
   }
