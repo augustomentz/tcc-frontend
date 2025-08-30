@@ -4,7 +4,7 @@ metadata:
   name: frontend-catalog-service
   namespace: default
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: tcc-frontend-catalog
   ports:

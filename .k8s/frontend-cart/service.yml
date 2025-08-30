@@ -4,7 +4,7 @@ metadata:
   name: frontend-cart-service
   namespace: default
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: tcc-frontend-cart
   ports:
