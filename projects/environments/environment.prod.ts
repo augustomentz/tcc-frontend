@@ -1,13 +1,13 @@
 export const environment = {
   production: true,
   api: {
-    catalog: 'http://34.120.145.255',
-    cart: 'http://34.120.145.255',
-    checkout: 'http://34.120.145.255'
+    catalog: 'http://34.117.217.225',
+    cart: 'http://34.117.217.225',
+    checkout: 'http://34.117.217.225'
   },
   mfe: {
-    catalog: 'http://34.8.170.154/catalog',
-    cart: 'http://34.8.170.154/cart',
-    checkout: 'http://34.8.170.154/checkout'
+    catalog: 'http://35.244.135.219/catalog',
+    cart: 'http://35.244.135.219/cart',
+    checkout: 'http://35.244.135.219/checkout'
   }
 }
