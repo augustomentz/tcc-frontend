@@ -16,5 +16,13 @@ spec:
       containers:
         - name: catalog
           image: ahmentz/tcc-frontend:front-catalog-latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "100m"
+            limits:
+              memory: "500Mi"
+              cpu: "500m"
