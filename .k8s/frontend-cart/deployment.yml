@@ -28,12 +28,12 @@ spec:
         livenessProbe:
           httpGet:
             path: /health
-            port: 8088
+            port: 80
           initialDelaySeconds: 3
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /health
-            port: 8088
+            port: 80
           initialDelaySeconds: 3
           periodSeconds: 10
