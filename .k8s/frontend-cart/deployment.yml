@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tcc-frontend-cart
-  namespace: default
 spec:
   replicas: 1
   selector:
@@ -14,15 +13,27 @@ spec:
         app: tcc-frontend-cart
     spec:
       containers:
-        - name: cart
-          image: ahmentz/tcc-frontend:front-cart-latest
-          imagePullPolicy: Always
-          ports:
-            - containerPort: 80
-          resources:
-            requests:
-              memory: "10Mi"
-              cpu: "10m"
-            limits:
-              memory: "40Mi"
-              cpu: "40m"
+      - name: cart
+        image: ahmentz/tcc-frontend:front-cart-latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "10Mi"
+            cpu: "10m"
+          limits:
+            memory: "40Mi"
+            cpu: "40m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 10
